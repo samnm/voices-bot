@@ -1,7 +1,7 @@
 import discord
 import argparse
 
-INSITGATOR_NAME='New Session'
+INSTIGATOR_NAME='New Session'
 GENERATED_PREFIX='#'
 GENERATED_NAME='{}{}'
 
@@ -12,7 +12,7 @@ class VoicesBot(discord.Client):
         for guild in self.guilds:
             channel = self.instigator_channel(guild)
             if not channel:
-                channel = await guild.create_voice_channel(INSITGATOR_NAME)
+                channel = await guild.create_voice_channel(INSTIGATOR_NAME)
             self.instigator_channels[guild] = channel
         
         print('Logged on as {0}!'.format(self.user))
@@ -56,7 +56,7 @@ class VoicesBot(discord.Client):
             return self.instigator_channels[guild]
         
         for channel in guild.voice_channels:
-            if channel.name == INSITGATOR_NAME:
+            if channel.name == INSTIGATOR_NAME:
                 return channel
         
         return None

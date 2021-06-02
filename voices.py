@@ -47,7 +47,7 @@ class VoicesBot(discord.Client):
     def rename_channels(self, guild):
         i = 0
         for channel in guild.voice_channels:
-            if channel.name.startswith(GENERATED_PREFIX):
+            if channel.name.startswith(GENERATED_PREFIX) and len(channel.members) > 0:
                 i += 1
                 channel.name = GENERATED_NAME.format(GENERATED_PREFIX, i)
 

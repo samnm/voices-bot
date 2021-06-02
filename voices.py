@@ -25,8 +25,6 @@ class VoicesBot(discord.Client):
                 await self.remove_channel(before.channel)
 
         if after.channel:
-            print(member.display_name + " joined voice channel: " + after.channel.name)
-
             guild = after.channel.guild
 
             if after.channel == self.instigator_channel(guild):

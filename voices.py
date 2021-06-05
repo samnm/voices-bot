@@ -19,8 +19,6 @@ class VoicesBot(discord.Client):
 
     async def on_voice_state_update(self, member, before, after):
         if before.channel:
-            guild = before.channel.guild
-
             if before.channel.name.startswith(GENERATED_PREFIX) and len(before.channel.members) == 0:
                 await self.remove_channel(before.channel)
 
@@ -40,15 +38,18 @@ class VoicesBot(discord.Client):
     async def remove_channel(self, channel):
         guild = channel.guild
         category = channel.category
-        await channel.delete()
-        await self.rename_channels(guild, category)
+        try:
+            await channel.delete()
+        except discord.NotFound:
+            print("Failed to delete channel")
+        # await self.rename_channels(guild, category)
 
-    async def rename_channels(self, guild, category):
-        i = 1
-        for channel in guild.voice_channels:
-            if channel.name.startswith(GENERATED_PREFIX) and channel.category == category:
-                await channel.edit(name=GENERATED_NAME.format(GENERATED_PREFIX, i))
-                i += 1
+    # async def rename_channels(self, guild, category):
+    #     i = 1
+    #     for channel in guild.voice_channels:
+    #         if channel.name.startswith(GENERATED_PREFIX) and channel.category == category:
+    #             await channel.edit(name=GENERATED_NAME.format(GENERATED_PREFIX, i))
+    #             i += 1
 
     def instigator_channel(self, guild):
         if guild in self.instigator_channels:

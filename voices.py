@@ -42,14 +42,14 @@ class VoicesBot(discord.Client):
             await channel.delete()
         except discord.NotFound:
             print("Failed to delete channel")
-        # await self.rename_channels(guild, category)
+        await self.rename_channels(guild, category)
 
-    # async def rename_channels(self, guild, category):
-    #     i = 1
-    #     for channel in guild.voice_channels:
-    #         if channel.name.startswith(GENERATED_PREFIX) and channel.category == category:
-    #             await channel.edit(name=GENERATED_NAME.format(GENERATED_PREFIX, i))
-    #             i += 1
+    async def rename_channels(self, guild, category):
+        i = 1
+        for channel in guild.voice_channels:
+            if channel.name.startswith(GENERATED_PREFIX) and channel.category == category:
+                await channel.edit(name=GENERATED_NAME.format(GENERATED_PREFIX, i))
+                i += 1
 
     def instigator_channel(self, guild):
         if guild in self.instigator_channels:

@@ -39,7 +39,6 @@ class VoicesBot(discord.Client):
 
     async def remove_channel(self, channel):
         guild = channel.guild
-        print('Removing channel {0}'.format(channel.name))
         await channel.delete()
         self.rename_channels(guild)
 

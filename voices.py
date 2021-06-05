@@ -48,8 +48,11 @@ class VoicesBot(discord.Client):
         i = 1
         for channel in guild.voice_channels:
             if channel.name.startswith(GENERATED_PREFIX) and channel.category == category:
-                await channel.edit(name=GENERATED_NAME.format(GENERATED_PREFIX, i))
-                i += 1
+                try:
+                    await channel.edit(name=GENERATED_NAME.format(GENERATED_PREFIX, i))
+                    i += 1
+                except discord.NotFound:
+                    print("Couldn't rename missing channel")
 
     def instigator_channel(self, guild):
         if guild in self.instigator_channels:

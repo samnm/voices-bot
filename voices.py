@@ -38,6 +38,7 @@ class VoicesBot(discord.Client):
         return await inst.clone(name=name)
 
     async def remove_channel(self, channel):
+        print('Removing channel {0}'.format(channel.name))
         guild = channel.guild
         self.rename_channels(guild)
         await channel.delete()
@@ -47,7 +48,9 @@ class VoicesBot(discord.Client):
         for channel in guild.voice_channels:
             if channel.name.startswith(GENERATED_PREFIX) and len(channel.members) > 0:
                 i += 1
-                channel.name = GENERATED_NAME.format(GENERATED_PREFIX, i)
+                new_name = GENERATED_NAME.format(GENERATED_PREFIX, i)
+                print('Renaming {0} to {1}'.format(channel.name, new_name))
+                channel.name = new_name
 
     def instigator_channel(self, guild):
         if guild in self.instigator_channels:

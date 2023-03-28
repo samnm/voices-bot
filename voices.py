@@ -32,7 +32,10 @@ class VoicesBot(discord.Client):
 
     async def create_next_channel(self, guild):
         inst = self.instigator_channel(guild)
-        name = GENERATED_NAME.format(GENERATED_PREFIX, self.num_channels(guild) + 1)
+        if(newPresence.activities[0].type == 'PLAYING'){
+            current_game_name = senewPresence.activities[0].name
+        }
+        name = GENERATED_NAME.format(GENERATED_PREFIX, self.num_channels(guild) + 1 + " " + current_game_name)
         return await inst.clone(name=name)
 
     async def remove_channel(self, channel):
